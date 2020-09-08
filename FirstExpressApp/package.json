@@ -1,0 +1,18 @@
+{
+  "name": "firstexpressapp",
+  "version": "1.0.0",
+  "description": "first espress app",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "nodemon app.js"
+  },
+  "author": "Ajin28",
+  "license": "ISC"
+}
