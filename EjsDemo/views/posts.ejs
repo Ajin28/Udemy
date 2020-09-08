@@ -1,6 +1,5 @@
-<link rel="stylesheet" href="app.css">
-
-<h1>this is post page</h1>
+<%- include("partials/header") %> 
+<!-- The <%- %> tags allow us to output the unescaped content onto the page (notice the -). This is important when using the include() statement since you don’t want EJS to escape your HTML characters like ‘<’, ‘>’, etc…<h1>this is post page</h1> -->
 
 
 <% for( let i = 0; i < posts.length; i++ ) { %>
@@ -14,3 +13,5 @@
         <%= post.title %> - <strong><%= post.author %></strong>   
     </li>
 <% }) %>
+
+<%- include("partials/footer") %> 

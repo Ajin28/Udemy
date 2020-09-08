@@ -1,12 +1,14 @@
 <!-- ejs - embedded javascript -->
+<%- include("partials/header") %> 
 
 <h1>You fell in love with <%=thingVar.toUpperCase() %></h1>
 <% if(thingVar.toLowerCase()==="coco"){%>
     <p>Damn right you do</p>
-<% } %>
-<%else{%>
+<% }else {%>
     <p>You should have said coco</p>
 <% } %>
 <!-- <%= %> : Outputs HTML value :this will put the return value in html -->
 <!-- <% %>  : No output tag :this is for logic -->
 <!-- check ejs extension -->
+
+<%- include("partials/footer") %> 
