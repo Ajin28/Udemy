@@ -1,18 +1,19 @@
 const express= require('express');
 const app = express();
 app.use(express.static("public"));
+app.set("view engine","ejs")
 
 app.get("/",(req,res)=>{
     res.send("<h1>Welcome using send</h1>")
 });
 
 app.get("/home",(req,res)=>{
-    res.render("home.ejs")
+    res.render("home")
 });
 
 app.get("/fallinlove/:thing", (req,res)=>{
     var thing = req.params.thing;
-    res.render("love.ejs",{thingVar:thing})
+    res.render("love",{thingVar:thing})
 });
 
 app.get("/posts",(req,res)=>{
@@ -22,7 +23,7 @@ app.get("/posts",(req,res)=>{
         {title:"i think dragons are neat", author:"tohru"}
 
     ]
-    res.render("posts.ejs", {posts})//same as posts:posts
+    res.render("posts", {posts})//same as posts:posts
 });
 
 app.listen(process.env.PORT||3000,function(){
