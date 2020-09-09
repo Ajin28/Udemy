@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var friends = ["Ayushi", "Avani", "Bhagya", "Anu", "Cersei"]
 
 app.get("/", (req, res) => {
-    res.render("home")
+    res.render("home");
 });
 
 app.get("/friends", (req, res) => {
