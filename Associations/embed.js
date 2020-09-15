@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const Post = require("./models/post"),
+    User = require("./models/user")
 
 mongoose.connect('mongodb://localhost:27017/blog_demo', {
     useNewUrlParser: true,
@@ -6,25 +8,6 @@ mongoose.connect('mongodb://localhost:27017/blog_demo', {
 })
     .then(() => console.log('Connected to Associations!'))
     .catch(error => console.log(error.message));
-
-
-//POST - title, content
-let postSchema = new mongoose.Schema({
-    title: String,
-    content: String
-});
-
-let Post = mongoose.model("Post", postSchema);
-
-//USER - email ,name
-let userSchema = new mongoose.Schema({
-    email: String,
-    name: String,
-    posts: [postSchema]
-});
-
-let User = mongoose.model("User", userSchema);
-
 
 // User.create(
 //     {
