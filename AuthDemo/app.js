@@ -33,7 +33,7 @@ passport.serializeUser(User.serializeUser());
 //below method is responsible for reading the data from session that encoded and decoding it
 passport.deserializeUser(User.deserializeUser());
 
-
+//========ROUTES==============================
 app.get("/", (req, res) => {
     res.render("home")
 })
@@ -42,6 +42,35 @@ app.get("/secret", (req, res) => {
     res.render("secret")
 })
 
+//CREATE USER
+app.get("/register", (req, res) => {
+    res.render("register");
+})
+
+//REGISTER USER
+app.post("/register", (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
+
+    User.register(new User({ username: username }), password, function (err, user) {
+        if (err) {
+            console.log(err);
+            return res.render("register")
+        }
+        // passport.authenticate will actually log the user in 
+        // will take care of everything in the session.
+        // will store the correct information.
+        // will run the serialized user method that we specified above.
+        // then we're specifying that we want to use the local strategy.
+        // In the future if we wanted to use another strategy and we had
+        // it installed we could change that to be Twitter or Facebook.
+        // Once user has looged in we're going to redirect to secret route
+        passport.authenticate("local")(req, res, function () {
+            res.redirect("/secret")
+        })
+    })
+
+})
 
 app.listen(3000, function () {
     console.log("AuthDemo Server started")
