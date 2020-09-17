@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
     res.render("home")
 })
 
-app.get("/secret", (req, res) => {
+app.get("/secret", isLoggedIn, (req, res) => {
     res.render("secret")
 })
 
@@ -105,6 +105,33 @@ app.post("/login", passport.authenticate("local", {
 // going to compare the password that the user typed
 // into the input and compare that to that crazy hash 
 // version in the database.
+
+//LOGOUT USER
+app.get("/logout", function (req, res) {
+    req.logout();
+    res.redirect("/")
+});
+
+
+// is logged in is a function we defined which acts as middleware
+// we can define as many middleware as we want and they 
+// all take these three parameters the request the response and the next function.
+// next is actually the next thing that needs to be called.
+
+// if things are fine if we want to move on to
+// the next middleware we just call next.
+// Just like to sceret page
+// And in our case if things are not fine if the request is not authenticated that returns false then we
+// short circuit and redirect to slash like it.
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+
+    res.redirect("/login")
+
+}
 
 app.listen(3000, function () {
     console.log("AuthDemo Server started")
