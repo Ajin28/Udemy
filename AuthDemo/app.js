@@ -27,7 +27,7 @@ app.use(require("express-session")({
 //below two lines setup passport
 app.use(passport.initialize());
 app.use(passport.session());
-
+passport.use(new LocalStrategy(User.authenticate()))
 //below method is responsible for encodind data and putting it back into seesion
 passport.serializeUser(User.serializeUser());
 //below method is responsible for reading the data from session that encoded and decoding it
@@ -42,7 +42,7 @@ app.get("/secret", (req, res) => {
     res.render("secret")
 })
 
-//CREATE USER
+//CREATE REGISTER FORM
 app.get("/register", (req, res) => {
     res.render("register");
 })
@@ -71,6 +71,40 @@ app.post("/register", (req, res) => {
     })
 
 })
+
+//CREATE LOGIN FORM
+app.get("/login", (req, res) => {
+    res.render("login");
+});
+
+//LOGIN USER
+// middleware passport.authenticate is some code that 
+// runs before our final route callback here.
+
+// the idea is that they sit between the beginning of your 
+// route and then at the end of the route which is our
+// handler at the very end. Hence the name middleware.
+
+// When our app gets a post request to slash log in 
+// it's going to run this code immediately and we can
+// have multiple middleware stacked up so we can have 
+// another thing that will run after we authenticate
+// and then another thing after that.
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "/secret",
+    failureRedirect: "/login"
+}), function (req, res) {
+
+})
+// It's going to take the password and the user name that 
+//are in the request inside request up body.
+
+// We don't even have to explicitly provide that passport 
+// automatically takes the username password from
+// the form or from the request body and it's basically 
+// going to compare the password that the user typed
+// into the input and compare that to that crazy hash 
+// version in the database.
 
 app.listen(3000, function () {
     console.log("AuthDemo Server started")

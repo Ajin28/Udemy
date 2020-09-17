@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     password: String
 });
 //adds a bunch of methods that come with passport-local-mongoose package
-//to userSchema like serializeUser() , deserializeUser()
+//to userSchema like serializeUser() , deserializeUser() , authenticate()
 userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model("User", userSchema)
